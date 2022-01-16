@@ -14,7 +14,7 @@ def most_frequent(string):
             if d[k] == i:
                 newdict[k] = d[k]
                 
-    print(d1)        
+    print(newdict)        
         
 most_frequent("Mississippi")
         
