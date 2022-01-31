@@ -45,12 +45,11 @@ for page_num in range(1,page_num_MAX):
         amenities_list=[]
         for amenity in parent_amenities_element.find_all("div",{"class":"amenityWrapper__amenity"}):
             amenities_list.append(amenity.find("span",{"class":"d-body-sm"}).text.strip())
+            hotel_dict["amenities"]=", ".join(amenities_list[:-1])
+            scraped_info_list.append(hotel_dict)
+            connect.insert_into_table(args.dbname,tuple(hotel_dict.values()))
 
-        hotel_dict["amenities"]=", ".join(amenities_list[:-1])
-        scraped_info_list.append(hotel_dict)
-        connect.insert_into_table(args.dbname,tuple(hotel_dict.values()))
-
-        # print(hotel_name,hotel_address,hotel_price,hotel_rating,amenities_list)
+      
 dataFrame=pandas.DataFrame(scraped_info_list)
 print("updating the csv file!!!!!")
 dataFrame.to_csv("Data.csv")
